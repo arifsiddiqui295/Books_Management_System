@@ -1,0 +1,15 @@
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const morgan = require('morgan');
+const bodyParser = require('body-parser'); 
+const indexRoutes = require("./routes/index.js");
+const connectionDB = require("./connection/connection.js");
+app.use(cors());
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/", indexRoutes);
+connectionDB();
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
